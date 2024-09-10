@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Game extends Model
 {
@@ -12,9 +11,9 @@ class Game extends Model
 
     public $timestamps = false; // Отключает временные метки
 
-    protected $fillable = ['Title', 'Studio', 'genre_id'];
+    protected $fillable = ['title', 'studio', 'genre_id'];
 
     function Genre(){
-        return $this->BelongsTo(Genre::class);
+        return $this->hasMany(Genre::class);
     }
 }

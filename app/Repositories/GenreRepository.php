@@ -17,17 +17,4 @@ class GenreRepository implements GenreRepositoryInterface{
         return Genre::create($data);
     }
 
-    public function updateGenres($id, array $data)
-    {
-        $genre = Genre::findOrFail($id);
-        $genre -> update($data);
-        return $genre;
-    }
-
-    public function deleteGenres($id)
-    {
-        $genre = Genre::findOrFail($id);
-        $genre -> delete();
-        return $genre;
-    }
 }

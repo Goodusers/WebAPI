@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\GenreServices;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class GenreController extends Controller
 {
@@ -13,16 +15,27 @@ class GenreController extends Controller
     {
         $this->genreService = $genreService;
     }
-    public function create_genre(Request $request){
-         $request->validate([
-            'title' => 'required'
-        ],[
-            'title.required' => 'Поле не может быть пустым'
-        ]);
+    /** 
+     * Создание нового жанра
+     * 
+     * @param Requset $request
+     * @return jsonResponse
+    **/
+
+    public function create_genre(Request $request): JsonResponse
+    {
+            $validated = $request->validate([
+                'title' => 'required'
+            ], [
+                'title.required' => 'The field cannot be empty',
+            ]);
     
-        $value = $request->all();
-        $this->genreService->createGenres($value);
-        return redirect()->back();
+            // Создание жанра
+            $genre = $this->genreService->createGenres($validated);
+    
+            return response()->json($genre, 201); // Возвращает 201 статус
+
     }
     
+
 }
